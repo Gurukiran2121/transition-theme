@@ -1,13 +1,42 @@
 {
-  "name": "transition-theme",
-  "private": true,
-  "version": "0.0.0",
+  "name": "react-theme-transition",
+  "private": false,
+  "version": "1.0.0",
+  "description": "A React hook for smooth theme transitions with various animation effects using the View Transitions API",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/hook/useThemeTransition.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "react",
+    "theme",
+    "dark-mode",
+    "light-mode",
+    "transition",
+    "animation",
+    "view-transitions-api",
+    "hook"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/react-theme-transition"
+  },
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.1",

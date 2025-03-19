@@ -270,7 +270,7 @@ export const useThemeTransition = (options?: ThemeTransitionOptions): ThemeTrans
   // Apply blur circle transition styles
   const applyBlurCircleTransition = (x: number, y: number) => {
     const viewportSize = Math.max(window.innerWidth, window.innerHeight)
-    const scaleFactor = 4
+    const scaleFactor = 5.5;
 
     const styleElement = document.createElement('style')
     styleElement.id = styleId

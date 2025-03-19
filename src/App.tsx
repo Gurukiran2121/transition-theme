@@ -141,7 +141,7 @@ const App: React.FC = () => {
                     <Title level={5}>Duration (ms)</Title>
                     <Slider
                       min={200}
-                      max={2000}
+                      max={5000}
                       step={50}
                       value={duration}
                       onChange={setDuration}

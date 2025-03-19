@@ -1,54 +1,218 @@
-# React + TypeScript + Vite
+# React Theme Transition
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React hook for smooth theme transitions with various animation effects using the View Transitions API.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 **Multiple Animation Types**: Circle, Blur Circle, Fade, Slide, or None
+- 🌓 **System Preference Support**: Automatically respects user's system color scheme
+- 🔄 **Smooth Transitions**: Uses the View Transitions API for seamless theme changes
+- 🎛️ **Customizable**: Control duration, easing, direction, and more
+- ♿ **Accessibility**: Respects reduced motion preferences
+- 📱 **Fallback Support**: Gracefully falls back in unsupported browsers
+- 📦 **Lightweight**: No external dependencies
+- 🔍 **TypeScript Support**: Full type definitions included
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install react-theme-transition
+# or
+yarn add react-theme-transition
+# or
+pnpm add react-theme-transition
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Browser Compatibility
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The animation requires the View Transitions API, which is currently supported in:
+- Chrome 111+
+- Edge 111+
+- Safari 16.4+
+- Opera 97+
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+In unsupported browsers, the theme will still change but without animation.
+
+## Basic Usage
+
+```jsx
+import { useThemeTransition, ThemeAnimationType } from 'react-theme-transition';
+
+function ThemeToggle() {
+  const { ref, toggleTheme, isDarkMode } = useThemeTransition({
+    animationType: ThemeAnimationType.CIRCLE,
+    duration: 750,
+    respectSystemPreference: true
+  });
+
+  return (
+    <button ref={ref} onClick={toggleTheme}>
+      {isDarkMode ? '🌙' : '☀️'}
+    </button>
+  );
+}
 ```
+
+## Animation Types
+
+### Circle
+
+A circular reveal animation that expands from the toggle button.
+
+```jsx
+import { useThemeTransition, ThemeAnimationType } from 'react-theme-transition';
+
+const { ref, toggleTheme } = useThemeTransition({
+  animationType: ThemeAnimationType.CIRCLE,
+  duration: 750
+});
+```
+
+### Blur Circle
+
+A blurred circular reveal animation for a softer transition.
+
+```jsx
+import { useThemeTransition, ThemeAnimationType } from 'react-theme-transition';
+
+const { ref, toggleTheme } = useThemeTransition({
+  animationType: ThemeAnimationType.BLUR_CIRCLE,
+  duration: 750,
+  blurAmount: 2 // Controls the blur intensity
+});
+```
+
+### Fade
+
+A simple crossfade between themes.
+
+```jsx
+import { useThemeTransition, ThemeAnimationType } from 'react-theme-transition';
+
+const { toggleTheme } = useThemeTransition({
+  animationType: ThemeAnimationType.FADE,
+  duration: 500
+});
+```
+
+### Slide
+
+A slide animation with configurable direction.
+
+```jsx
+import { useThemeTransition, ThemeAnimationType, SlideDirection } from 'react-theme-transition';
+
+const { toggleTheme } = useThemeTransition({
+  animationType: ThemeAnimationType.SLIDE,
+  duration: 500,
+  slideDirection: SlideDirection.RIGHT
+});
+```
+
+## API Reference
+
+### `useThemeTransition(options?)`
+
+The main hook that provides theme transition functionality.
+
+#### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `duration` | `number` | `750` | Duration of the transition animation in milliseconds |
+| `easing` | `string` | `'cubic-bezier(0.4, 0, 0.2, 1)'` | CSS easing function for the animation |
+| `themeClassName` | `string` | `'dark'` | CSS class name to apply to document for dark mode |
+| `animationType` | `ThemeAnimationType` | `ThemeAnimationType.CIRCLE` | Animation type to use for transitions |
+| `blurAmount` | `number` | `2` | Blur amount for BLUR_CIRCLE animation type |
+| `isDarkMode` | `boolean` | `undefined` | Optional external control of dark mode state |
+| `onDarkModeChange` | `(isDark: boolean) => void` | `undefined` | Callback when dark mode state changes |
+| `storageKey` | `string` | `'theme'` | Storage key for persisting theme preference |
+| `respectSystemPreference` | `boolean` | `true` | Respect user's system preference for dark/light mode |
+| `slideDirection` | `SlideDirection` | `SlideDirection.RIGHT` | Direction for slide animation |
+
+#### Return Value
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `ref` | `React.RefObject<HTMLElement>` | Ref to attach to the toggle button element |
+| `toggleTheme` | `() => Promise<void>` | Function to toggle between light and dark themes |
+| `setTheme` | `(isDark: boolean) => Promise<void>` | Function to explicitly set the theme |
+| `isDarkMode` | `boolean` | Current dark mode state |
+| `isTransitioning` | `boolean` | Whether the animation is currently running |
+
+### Enums
+
+#### `ThemeAnimationType`
+
+```typescript
+enum ThemeAnimationType {
+  CIRCLE = 'circle',         // Simple expanding circle
+  BLUR_CIRCLE = 'blur-circle', // Blurred edge expanding circle
+  FADE = 'fade',             // Simple crossfade between themes
+  SLIDE = 'slide',           // Slide animation
+  NONE = 'none'              // No animation
+}
+```
+
+#### `SlideDirection`
+
+```typescript
+enum SlideDirection {
+  UP = 'up',
+  DOWN = 'down',
+  LEFT = 'left',
+  RIGHT = 'right'
+}
+```
+
+## Advanced Usage
+
+### External State Control
+
+You can control the dark mode state externally:
+
+```jsx
+import { useState } from 'react';
+import { useThemeTransition } from 'react-theme-transition';
+
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  
+  const { ref, toggleTheme } = useThemeTransition({
+    isDarkMode: darkMode,
+    onDarkModeChange: setDarkMode
+  });
+  
+  return (
+    <div>
+      <button ref={ref} onClick={toggleTheme}>Toggle Theme</button>
+      <div>Current theme: {darkMode ? 'Dark' : 'Light'}</div>
+    </div>
+  );
+}
+```
+
+### CSS Integration
+
+The hook adds a CSS class (default: `dark`) to the `documentElement` when in dark mode. You can use this to style your application:
+
+```css
+:root {
+  --background: white;
+  --text: black;
+}
+
+.dark {
+  --background: #121212;
+  --text: white;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+```
+
+## License
+
+MIT
