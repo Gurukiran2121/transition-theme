@@ -19,7 +19,6 @@ import {
 } from "antd";
 import {
   BulbOutlined,
-  SwapOutlined,
   InfoCircleOutlined,
   CodeOutlined,
 } from "@ant-design/icons";
@@ -69,7 +68,6 @@ const App: React.FC = () => {
   const {
     ref: toggleRTef,
     toggleTheme,
-    setTheme,
     isDarkMode,
     isTransitioning,
   } = useThemeTransition({

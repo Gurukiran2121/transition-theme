@@ -61,7 +61,7 @@ export interface ThemeTransitionOptions {
  */
 export interface ThemeTransitionResult {
   /** Ref to attach to the toggle button element */
-  ref: React.RefObject<HTMLElement>;
+  ref: React.MutableRefObject<HTMLDivElement | null>;
   /** Function to toggle between light and dark themes */
   toggleTheme: () => Promise<void>;
   /** Function to explicitly set the theme */
@@ -79,7 +79,7 @@ export const useThemeTransition = (options?: ThemeTransitionOptions): ThemeTrans
   const {
     duration = 750,
     easing = 'cubic-bezier(0.4, 0, 0.2, 1)',
-    pseudoElement = '::view-transition-new(root)',
+    // pseudoElement = '::view-transition-new(root)',
     themeClassName = 'dark',
     animationType = ThemeAnimationType.CIRCLE,
     blurAmount = 2,
@@ -134,7 +134,7 @@ export const useThemeTransition = (options?: ThemeTransitionOptions): ThemeTrans
   const isDarkMode = externalDarkMode !== undefined ? externalDarkMode : internalDarkMode
   
   // Create ref for the button element
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   // Create a blurred circle SVG mask for the blur animation
   const createBlurCircleMask = (blur: number) => {
@@ -215,7 +215,7 @@ export const useThemeTransition = (options?: ThemeTransitionOptions): ThemeTrans
 
   // Apply slide transition styles
   const applySlideTransition = () => {
-    let fromX = '0%', toX = '0%', fromY = '0%', toY = '0%'
+    let fromX = '0%', fromY = '0%';
     
     switch (slideDirection) {
       case SlideDirection.UP:
