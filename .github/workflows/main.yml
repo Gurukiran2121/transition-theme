@@ -5,13 +5,6 @@ on:
     branches:
       - master
 
-jobs:name: Deploy on Push to Master
-
-on:
-  push:
-    branches:
-      - master
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -36,27 +29,4 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run deploy
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20 # Adjust based on your project's requirement
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Configure Git Identity
-        run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "GitHub Actions"
-
-      - name: Deploy to GitHub Pages
         run: npm run deploy
