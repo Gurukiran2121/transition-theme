@@ -6,7 +6,7 @@ on:
       - master
 
 permissions:
-  contents: write  # ✅ Grants permission to push to gh-pages
+  contents: write
 
 jobs:
   deploy:
