@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -u 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>' --repo https://x-access-token:${GITHUB_TOKEN}@github.com/Gurukiran2121/transition-theme.git",
+  "deploy": "gh-pages -d dist -u 'GitHub Actions <actions@github.com>' --repo https://x-access-token:${GITHUB_TOKEN}@github.com/Gurukiran2121/transition-theme.git",
 
   },
   "main": "dist/index.js",
