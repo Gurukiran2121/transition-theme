@@ -1,4 +1,4 @@
-# React Theme Transition
+# React Theme Transition 
 
 A React hook for smooth theme transitions with various animation effects using the View Transitions API.
 
