@@ -3,7 +3,10 @@ name: Deploy on Push to Master
 on:
   push:
     branches:
-      - main
+      - master
+
+permissions:
+  contents: write  # ✅ Grants permission to push to gh-pages
 
 jobs:
   deploy:
@@ -16,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Adjust based on your project requirements
+          node-version: 20
 
       - name: Install Dependencies
         run: npm install
@@ -29,4 +32,6 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run deploy
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Gurukiran2121/transition-theme.git
+          npm run deploy
