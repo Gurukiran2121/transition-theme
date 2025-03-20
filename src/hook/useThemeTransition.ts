@@ -6,7 +6,7 @@ import { flushSync } from 'react-dom'
 const isBrowser = typeof window !== 'undefined'
 
 /**
- * Animation types for theme transitionss
+ * Animation types for theme transitions
  */
 export enum ThemeAnimationType {
   CIRCLE = 'circle',         // Simple expanding circle
