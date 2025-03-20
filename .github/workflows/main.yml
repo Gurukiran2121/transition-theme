@@ -1,0 +1,25 @@
+name: Deploy on Push to Master
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Adjust this based on your Node.js version
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Deploy Application
+        run: npm run deploy
