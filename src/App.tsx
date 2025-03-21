@@ -124,7 +124,6 @@ const App: React.FC = () => {
                       style={{ width: "100%" }}
                       value={animationType}
                       onChange={setAnimationType}
-                      disabled={isTransitioning}
                     >
                       <Option value={ThemeAnimationType.CIRCLE}>Circle</Option>
                       <Option value={ThemeAnimationType.BLUR_CIRCLE}>
@@ -143,7 +142,7 @@ const App: React.FC = () => {
                       step={50}
                       value={duration}
                       onChange={setDuration}
-                      disabled={isTransitioning}
+                      
                     />
                   </Col>
                 </Row>
@@ -155,7 +154,7 @@ const App: React.FC = () => {
                       style={{ width: "100%" }}
                       value={easing}
                       onChange={setEasing}
-                      disabled={isTransitioning}
+                      
                     >
                       <Option value="cubic-bezier(0.4, 0, 0.2, 1)">
                         Ease (Material)
@@ -176,7 +175,7 @@ const App: React.FC = () => {
                           step={0.5}
                           value={blurAmount}
                           onChange={setBlurAmount}
-                          disabled={isTransitioning}
+                          
                         />
                       </>
                     )}
@@ -187,7 +186,7 @@ const App: React.FC = () => {
                           style={{ width: "100%" }}
                           value={slideDirection}
                           onChange={setSlideDirection}
-                          disabled={isTransitioning}
+                          
                         >
                           <Option value={SlideDirection.RIGHT}>Right</Option>
                           <Option value={SlideDirection.LEFT}>Left</Option>
@@ -206,7 +205,7 @@ const App: React.FC = () => {
                       <Switch
                         checked={respectSystemPreference}
                         onChange={setRespectSystemPreference}
-                        disabled={isTransitioning}
+                       
                       />
                       <Text>Respect system color scheme preference</Text>
                     </Space>
