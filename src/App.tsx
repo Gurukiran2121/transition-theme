@@ -56,7 +56,7 @@ const App: React.FC = () => {
     ThemeAnimationType.CIRCLE
   );
   const [duration, setDuration] = useState<number>(750);
-  const [easing, setEasing] = useState<string>("cubic-bezier(0.4, 0, 0.2, 1)");
+  const [easing, setEasing] = useState<string>("ease-in-out");
   const [blurAmount, setBlurAmount] = useState<number>(2);
   const [respectSystemPreference, setRespectSystemPreference] =
     useState<boolean>(true);
